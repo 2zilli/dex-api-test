@@ -33,51 +33,46 @@ This project demonstrates integrating backend APIs with smart contracts.
     ```
 
 5. **Access the API**:
-   Open your browser and navigate to `http://localhost:5000/api/philipapitest` to see the response from the new API endpoint.
+   Open your browser and navigate to the following endpoints:
 
-## API Endpoint
+    - `/api/slot0/:address` - Fetches the `slot0` information of the given Uniswap V3 pool address.
+    - `/api/liquidity/:address` - Fetches the liquidity of the given Uniswap V3 pool address.
+    - `/api/token0/:address` - Fetches information about the first token in the given Uniswap V3 pool address.
+    - `/api/token1/:address` - Fetches information about the second token in the given Uniswap V3 pool address.
+    - `/api/price/:address?token=token0` - Fetches the price of `token0` (USDC) in terms of `token1` (WETH) for the given Uniswap V3 pool address.
+    - `/api/price/:address?token=token1` - Fetches the price of `token1` (WETH) in terms of `token0` (USDC) for the given Uniswap V3 pool address.
 
-### GET `/api/philipapitest`
+## API Endpoints
 
-Fetches data from the specified Uniswap V3 pool.
+### GET `/api/slot0/:address`
 
-#### Response
+Fetches the `slot0` information of the specified Uniswap V3 pool.
 
-The API will return a JSON object with the following structure:
+### GET `/api/liquidity/:address`
 
-```json
-{
-    "sqrtPriceX96": "1292389693305732460320817308629856",
-    "tick": "194003",
-    "liquidity": "17333230102837283116",
-    "token0": {
-        "symbol": "USDC",
-        "decimals": "6"
-    },
-    "token1": {
-        "symbol": "WETH",
-        "decimals": "18"
-    },
-    "price": "3758.1334"
-}
-```
+Fetches the liquidity of the specified Uniswap V3 pool.
+
+### GET `/api/token0/:address`
+
+Fetches information about the first token in the specified Uniswap V3 pool.
+
+### GET `/api/token1/:address`
+
+Fetches information about the second token in the specified Uniswap V3 pool.
+
+### GET `/api/price/:address?token=token0`
+
+Fetches the price of `token0` in terms of `token1` for the specified Uniswap V3 pool.
+
+### GET `/api/price/:address?token=token1`
+
+Fetches the price of `token1` in terms of `token0` for the specified Uniswap V3 pool.
 
 #### Explanation of Response Fields
 
 -   **sqrtPriceX96**: The square root of the price ratio in Q64.96 format.
 -   **tick**: The current tick of the pool.
 -   **liquidity**: The current in-range liquidity of the pool.
--   **token0**: Information about the first token in the pool.
-    -   **symbol**: The symbol of the token (e.g., USDC).
-    -   **decimals**: The number of decimal places for the token.
--   **token1**: Information about the second token in the pool.
-    -   **symbol**: The symbol of the token (e.g., WETH).
-    -   **decimals**: The number of decimal places for the token.
--   **price**: The price of WETH in terms of USDC, formatted to 4 decimal places.
-
-## How It Works
-
--   **Infura Setup**: The application uses Infura to connect to the Ethereum mainnet. Ensure you have an Infura project ID set up in the `.env` file.
--   **Uniswap V3 Pool**: The application interacts with a specific Uniswap V3 pool (WETH/USDC) to fetch the latest pool data.
--   **ethers.js**: The application uses `ethers.js` to interact with the Ethereum blockchain and fetch data from the Uniswap smart contracts.
--   **API Endpoint**: The `/api/philipapitest` endpoint queries the Uniswap V3 pool and returns the pool data as a JSON response.
+-   **symbol**: The symbol of the token (e.g., USDC or WETH).
+-   **decimals**: The number of decimal places for the token.
+-   **price**: The price of the specified token in terms of the other token.
