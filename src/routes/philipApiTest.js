@@ -151,9 +151,9 @@ router.get("/price/:address", async (req, res) => {
         const adjustedPrice =
             priceX96 / (10n ** BigInt(decimals1) / 10n ** BigInt(decimals0));
         if (token === "token0") {
-            finalPrice = BigInt(10n ** 36n) / adjustedPrice;
-        } else if (token === "token1") {
             finalPrice = adjustedPrice;
+        } else if (token === "token1") {
+            finalPrice = BigInt(10n ** 36n) / adjustedPrice;
         } else {
             return res
                 .status(400)
