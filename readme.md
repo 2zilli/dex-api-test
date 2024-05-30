@@ -39,8 +39,8 @@ This project demonstrates integrating backend APIs with smart contracts.
     - `/api/liquidity/:address` - Fetches the liquidity of the given Uniswap V3 pool address.
     - `/api/token0/:address` - Fetches information about the first token in the given Uniswap V3 pool address.
     - `/api/token1/:address` - Fetches information about the second token in the given Uniswap V3 pool address.
-    - `/api/price/:address?token=token0` - Fetches the price of `token0` (USDC) in terms of `token1` (WETH) for the given Uniswap V3 pool address.
-    - `/api/price/:address?token=token1` - Fetches the price of `token1` (WETH) in terms of `token0` (USDC) for the given Uniswap V3 pool address.
+    - `/api/price/:address?token=token0` - Fetches the price of `token0` in terms of `token1` for the given Uniswap V3 pool address.
+    - `/api/price/:address?token=token=token1` - Fetches the price of `token1` in terms of `token0` for the given Uniswap V3 pool address.
 
 ## API Endpoints
 
@@ -68,6 +68,21 @@ Fetches the price of `token0` in terms of `token1` for the specified Uniswap V3 
 
 Fetches the price of `token1` in terms of `token0` for the specified Uniswap V3 pool.
 
+#### Example
+
+For the USDC/WETH pool at address `0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640`:
+
+-   **To get the price of USDC (token0) in terms of WETH (token1)**:
+
+    ```sh
+    curl "http://localhost:5000/api/price/0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640?token=token0"
+    ```
+
+-   **To get the price of WETH (token1) in terms of USDC (token0)**:
+    ```sh
+    curl "http://localhost:5000/api/price/0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640?token=token1"
+    ```
+
 #### Explanation of Response Fields
 
 -   **sqrtPriceX96**: The square root of the price ratio in Q64.96 format.
@@ -75,4 +90,4 @@ Fetches the price of `token1` in terms of `token0` for the specified Uniswap V3 
 -   **liquidity**: The current in-range liquidity of the pool.
 -   **symbol**: The symbol of the token (e.g., USDC or WETH).
 -   **decimals**: The number of decimal places for the token.
--   **price**: The price of the specified token in terms of the other token.
+-   **price**: The price of the specified token in terms of the other token, correctly adjusted to the appropriate number of decimal places.
